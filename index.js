@@ -55,6 +55,10 @@ app.post("/", (request, response) => {
           return;
         }
         console.log(`stdout: ${stdout}`);
+        response.json({
+          status: "success",
+          output: stdout,
+        });
       });
     });
   }
