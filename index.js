@@ -2,9 +2,11 @@ const fs = require("fs");
 const express = require("express");
 const app = express();
 const { spawn } = require("node:child_process");
+const path = require("path");
 
 app.listen(3000, () => console.log("listening at port 3000"));
 app.use(express.static("frontend"));
+app.use(express.static("public"));
 app.use(express.json());
 
 app.post("/", (request, response) => {

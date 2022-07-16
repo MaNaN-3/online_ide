@@ -5,26 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>FETCH REQUEST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+   
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Akaya Kanadaka' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Edu NSW ACT Foundation' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Chilanka' rel='stylesheet'>
 </head>
 
 <body>
-    <h1>ONLINE IDE</h1>
-    <h2>Please select your language</h2>
-    <select name="language" id="lang-select">
-        <option value="">--Please choose an option--</option>
-        <option value="c++">c++</option>
+    <h1 class="heading">ONLINE IDE</h1>
+    <h2 class="language">Please select your language</h2>
+    <select class="lang-select" name="language" id="lang-select">
+        <option class="lang-text" value="">--Please choose an option--</option>
+        <option class="options" value="c++">c++</option>
         <option value="c">c</option>
         <option value="python">python</option>
         <option value="java">java</option>
     </select><br><br>
-    <textarea id="code" name="code" rows="4" cols="50"></textarea><br>
-    <h2>input:</h2><textarea id="input" name="input" rows="4" cols="50"></textarea>
-    <button type="button" id="sendData">send data</button><br><br>
-    <!-- <textarea id="output" name="output" rows="4" cols="50">Output</textarea> -->
-    <h3 id="output">output</h3>
-</body>
+    <div class="my-area"> 
+        <div class="code-exec">
+            <textarea class="code-area" id="code" name="code" rows="4" cols="50" placeholder="Enter your code..."></textarea>
+            <button class="btn btn-success" id="sendData">Run Code</button><br><br>
+        </div>
+        <div class="debug-area">
+            <h2 class="title-input">Enter Input</h2><textarea class="input-area" id="input" name="input" rows="4" cols="50" style="width: 60%; height: 8rem;"></textarea>
+            <!-- <textarea id="output" name="output" rows="4" cols="50">Output</textarea> -->
+            <h3 id="output">Output</h3>
+        </div>
+    </div>
+<!</body> 
 <script src="fetch.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
 </html>
