@@ -1,6 +1,7 @@
 const fs = require("fs");
 const express = require("express");
 const app = express();
+const { spawn } = require("node:child_process");
 
 app.listen(3000, () => console.log("listening at port 3000"));
 app.use(express.static("frontend"));
@@ -11,23 +12,23 @@ app.post("/", (request, response) => {
   const language = request.body.language;
   if (language === "python") {
     var body = request.body.code;
+    const input = request.body.input;
     fs.writeFile("code.py", body, function (err) {
       if (err) throw err;
       console.log("File is created successfully.");
     });
-    const { exec } = require("child_process");
-    const { ppid } = require("process");
-    exec("python3 code.py", (error, stdout, stderr) => {
-      if (error) {
-        console.log(`error: ${error.message}`);
-        return;
-      }
-      if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return;
-      }
-      console.log(`stdout: ${stdout}`);
+
+    const command = spawn("python3", ["code.py"]);
+    command.stdin.write(input);
+    command.stdin.end();
+    command.stdout.on("data", (output) => {
+      console.log("Output: ", output.toString());
+      response.json({
+        status: "success",
+        output: output.toString(),
+      });
     });
+    return;
   } else if (language === "c++") {
     var body = request.body.code;
     fs.writeFile("code.cpp", body, function (err) {
@@ -39,25 +40,29 @@ app.post("/", (request, response) => {
     exec("g++ code.cpp", (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`);
+        response.json({
+          status: "success",
+          output: error.message,
+        });
         return;
       }
       if (stderr) {
         console.log(`stderr: ${stderr}`);
-        return;
-      }
-      exec("a.exe", (error, stdout, stderr) => {
-        if (error) {
-          console.log(`error: ${error.message}`);
-          return;
-        }
-        if (stderr) {
-          console.log(`stderr: ${stderr}`);
-          return;
-        }
-        console.log(`stdout: ${stdout}`);
         response.json({
           status: "success",
-          output: stdout,
+          output: stderr,
+        });
+        return;
+      }
+      const run = spawn("a.exe");
+      const input = request.body.input;
+      run.stdin.write(input);
+      run.stdin.end();
+      run.stdout.on("data", (output) => {
+        console.log("Output: ", output.toString());
+        response.json({
+          status: "success",
+          output: output.toString(),
         });
       });
     });

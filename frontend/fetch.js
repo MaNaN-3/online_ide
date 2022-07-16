@@ -1,10 +1,13 @@
 const send = document.getElementById("sendData");
 const languageSelector = document.getElementById("lang-select");
 const output = document.getElementById("output");
+const splitLines = (str) => str.split(/\r?\n/).split(" ");
 function sendHTTPresponse() {
-  var code = document.getElementById("code").value;
+  const code = document.getElementById("code").value;
+  // const input = splitLines(document.getElementById("input").value);
+  const input = document.getElementById("input").value;
   var language = languageSelector.options[languageSelector.selectedIndex].value;
-  const data = { code, language };
+  const data = { code, language, input };
   //   console.log(data);
   const options = {
     method: "POST",
@@ -18,6 +21,6 @@ function sendHTTPresponse() {
     .then((data) => {
       output.innerHTML = data.output;
     });
-  document.getElementById("code").value = "";
+  // document.getElementById("code").value = "";
 }
 send.addEventListener("click", sendHTTPresponse);
